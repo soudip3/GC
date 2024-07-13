@@ -10,7 +10,7 @@ request_headers = {
     "Authorization": f"{ ACCESS_TOKEN_JSON['token_type'] } { ACCESS_TOKEN_JSON['access_token']}"
 }
 
-response = requests.get(f"https://api.{ENVIRONMENT}/api/v2/authorization/roles/{sys.argv[1]}",headers=request_headers)
+response = requests.get(f"https://api.{ENVIRONMENT}//api/v2/authorization/roles?name={sys.argv[1]}",headers=request_headers)
 
 if response.status_code==200:
     response_json = response.json()
