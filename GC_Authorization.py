@@ -1,13 +1,12 @@
-import requests
-import base64
-import sys
+import requests, base64, sys
 from dotenv import dotenv_values
 
-credentials_dev =  dotenv_values(".env.dev")
-client_id = credentials_dev["GENESYS_CLOUD_CLIENT_ID"]
-client_secret = credentials_dev["GENESYS_CLOUD_CLIENT_SECRET"]
-access_token_url = credentials_dev["GENESYS_CLOUD_ACCESS_TOKEN_URL"]
-encodedData = base64.b64encode(bytes(f"{client_id}:{client_secret}", "ISO-8859-1")).decode("ascii")
+credentials =  dotenv_values(".env.dev")
+CLIENT_ID = credentials["GENESYS_CLOUD_CLIENT_ID"]
+CLIENT_SECRET = credentials["GENESYS_CLOUD_CLIENT_SECRET"]
+ENVIRONMENT = credentials["GENESYS_CLOUD_ENVIRONMENT"]
+
+encodedData = base64.b64encode(bytes(f"{CLIENT_ID}:{CLIENT_SECRET}", "ISO-8859-1")).decode("ascii")
 
 request_headers = {
     "Authorization": f"Basic {encodedData}",
@@ -18,11 +17,11 @@ request_body = {
     "grant_type": "client_credentials"
 }
 
-response = requests.post(credentials_dev["GENESYS_CLOUD_ACCESS_TOKEN_URL"], data=request_body, headers=request_headers)
-
-if response.status_code==200:
-    response_json = response.json()
-    access_token = response_json['access_token']
-else:
-    print(f"Failure: { str(response.status_code) } - { response.reason }")
-    sys.exit(response.status_code)
+def authentication():
+    response = requests.post(f"https://login.{ENVIRONMENT}/oauth/token", data=request_body, headers=request_headers)
+    if response.status_code==200:
+        response_json = response.json()
+        return response_json
+    else:
+        print(f"Failure: { str(response.status_code) } - { response.reason }")
+        sys.exit(response.status_code)
