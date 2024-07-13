@@ -1,5 +1,7 @@
-a=5
-b=8
-print(a+b)
-print("Soudip Halder")
-#this is for Genesys Cloud Role Extraction
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+print(os.getenv("CLIENT_ID"))
+print(os.getenv("CLIENT_SECRET"))
