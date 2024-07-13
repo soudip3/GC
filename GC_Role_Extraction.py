@@ -1,6 +1,3 @@
-from dotenv import dotenv_values
+import GC_Authorization
 
-credentials_dev =  dotenv_values(".env.dev")
-
-print(credentials_dev["CLIENT_ID"])
-print(credentials_dev["CLIENT_SECRET"])
+access_token = GC_Authorization.access_token
