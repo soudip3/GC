@@ -1,7 +1,6 @@
-from dotenv import load_dotenv
-import os
+from dotenv import dotenv_values
 
-load_dotenv()
+credentials_dev =  dotenv_values(".env.dev")
 
-print(os.getenv("CLIENT_ID"))
-print(os.getenv("CLIENT_SECRET"))
+print(credentials_dev["CLIENT_ID"])
+print(credentials_dev["CLIENT_SECRET"])
