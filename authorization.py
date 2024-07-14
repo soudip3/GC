@@ -1,7 +1,7 @@
 import requests, base64, sys
 from dotenv import dotenv_values
 
-credentials =  dotenv_values(".env.dev")
+credentials =  dotenv_values(".env")
 CLIENT_ID = credentials["GENESYS_CLOUD_CLIENT_ID"]
 CLIENT_SECRET = credentials["GENESYS_CLOUD_CLIENT_SECRET"]
 ENVIRONMENT = credentials["GENESYS_CLOUD_ENVIRONMENT"]

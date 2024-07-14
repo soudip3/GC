@@ -1,10 +1,10 @@
 import sys
-from openpyxl import Workbook
+from openpyxl import Workbook,load_workbook
 
 wb = Workbook()
-ws = wb.create_sheet(f"Role_{sys.argv[1]}")
 
-def loadExcel(response_json):
+def loadExcel(response_json,role):
+    ws = wb.create_sheet(f"Role_{role}")
     permissionPoliciesLen = len(response_json["entities"][0]["permissionPolicies"])
     k=1
     for i in range(permissionPoliciesLen):
@@ -20,4 +20,4 @@ def loadExcel(response_json):
             permission = domain+" > "+entityName+" > "+actionSet
             ws[f"A{k}"] = permission
             k=k+1
-    wb.save("Roles.xlsx")
+    wb.save("rolesExtraction.xlsx")
