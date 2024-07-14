@@ -1,11 +1,12 @@
-import xlsxwriter, sys
+import sys
+from openpyxl import Workbook
 
+wb = Workbook()
+ws = wb.create_sheet(f"Role_{sys.argv[1]}")
 
 def loadExcel(response_json):
     permissionPoliciesLen = len(response_json["entities"][0]["permissionPolicies"])
-    k=0
-    wb = xlsxwriter.Workbook(f"Role_{sys.argv[1]}.xlsx")
-    ws = wb.add_worksheet(f"Permission_{sys.argv[1]}")
+    k=1
     for i in range(permissionPoliciesLen):
         actionSetLen = len(response_json["entities"][0]["permissionPolicies"][i]["actionSet"])
         for j in range (actionSetLen):
@@ -17,6 +18,6 @@ def loadExcel(response_json):
             if entityName == "*":
                 entityName = "ALL"
             permission = domain+" > "+entityName+" > "+actionSet
-            ws.write(k,0,permission)
+            ws[f"A{k}"] = permission
             k=k+1
-    wb.close()
+    wb.save("Roles.xlsx")

@@ -1,10 +1,10 @@
 import requests, sys
 from dotenv import dotenv_values
-from GC_Authorization import authentication
-from GC_LoadRoletoExcel import loadExcel
+from authorization import authentication
+from loadExcel import loadExcel
 
 ACCESS_TOKEN_JSON = authentication()
-credentials =  dotenv_values(".env.dev")
+credentials =  dotenv_values(".env")
 ENVIRONMENT = credentials["GENESYS_CLOUD_ENVIRONMENT"]
 request_headers = {
     "Authorization": f"{ ACCESS_TOKEN_JSON['token_type'] } { ACCESS_TOKEN_JSON['access_token']}"
